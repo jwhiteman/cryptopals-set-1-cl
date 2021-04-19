@@ -88,7 +88,7 @@
                     (let ((max 0)
                           (the-key nil))
                       (do ((key-guess 0 (1+ key-guess)))
-                        ((= key-guess 127) (code-char the-key))
+                          ((= key-guess 127) (code-char the-key))
                         (let ((res (score
                                      (repeat-key-xor bytes key-guess))))
                           (when (> res max)
