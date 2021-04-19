@@ -14,7 +14,10 @@
                               (throw 'result t)
                               (_ 0 nil (cons acc gacc) lst)))
                            (t
-                             (_ (1+ i) (cons (car lst) acc) gacc (cdr lst))))))
+                             (_ (1+ i)
+                                (cons (car lst) acc)
+                                gacc
+                                (cdr lst))))))
            (_ 0 nil nil (to-bytes line)))))
 
 (with-open-file (instream "8.dat")
@@ -23,6 +26,6 @@
        (line-number 1 (1+ line-number)))
     ((equal line :eof))
     (when (duplicate-blocks line)
-      (format t "~%ECB detected on line ~A!: ~A~%" line-number line))))
+      (format t "~%Duplicate blocks detected on line ~A: ~A~%" line-number line))))
 
-;; > "ECB detected on line 133!: d88061974..."
+;; > "ECB detected on line 133: d88061974..."
