@@ -24,6 +24,6 @@
 
 (with-open-file (instream "7.txt")
   (let ((c1 (cl-base64:base64-stream-to-string instream)))
-    (format t "~a" (decrypt "YELLOW SUBMARINE" c1))))
+    (format t "~a" (aes-ecb-decrypt "YELLOW SUBMARINE" c1))))
 
 ;; > "I'm back and I'm ringin' the bell"...
