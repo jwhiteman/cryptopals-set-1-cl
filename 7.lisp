@@ -22,7 +22,7 @@
     (values (map 'string #'code-char str-bytes)
             str-bytes)))
 
-(with-open-file (instream "7.dat")
+(with-open-file (instream "7.txt")
   (let ((c1 (cl-base64:base64-stream-to-string instream)))
     (format t "~a" (decrypt "YELLOW SUBMARINE" c1))))
 

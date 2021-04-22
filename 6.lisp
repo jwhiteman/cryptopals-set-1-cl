@@ -5,7 +5,7 @@
   (map 'list #'char-code str))
 
 (defvar *bytes*
-  (with-open-file (instream "6.dat")
+  (with-open-file (instream "6.txt")
     (to-bytes
       (cl-base64:base64-stream-to-string instream))))
 

@@ -20,7 +20,7 @@
                                 (cdr lst))))))
            (_ 0 nil nil (to-bytes line)))))
 
-(with-open-file (instream "8.dat")
+(with-open-file (instream "8.txt")
   (do ((line (read-line instream nil :eof)
              (read-line instream nil :eof))
        (line-number 1 (1+ line-number)))

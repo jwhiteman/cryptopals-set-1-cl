@@ -14,7 +14,7 @@
 
 (let ((max 0)
       (msg))
-  (with-open-file (instream "4.dat" :direction :input)
+  (with-open-file (instream "4.txt" :direction :input)
     (do ((line (read-line instream nil :eof)
                (read-line instream nil :eof)))
         ((eql line :eof) (format t "~A~%" msg))
