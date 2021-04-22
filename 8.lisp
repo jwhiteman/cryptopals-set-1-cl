@@ -25,7 +25,7 @@
              (read-line instream nil :eof))
        (line-number 1 (1+ line-number)))
     ((equal line :eof))
-    (when (duplicate-blocks line)
+    (when (duplicate-blocks? line)
       (format t "~%Duplicate blocks detected on line ~A: ~A~%" line-number line))))
 
-;; > "ECB detected on line 133: d88061974..."
+;; > "Duplicate blocks detected on line 133: d88061974..."
