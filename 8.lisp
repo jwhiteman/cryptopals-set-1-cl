@@ -1,24 +1,16 @@
 (ql:quickload :cl-ppcre)
 
-(defun to-bytes (hexs)
-  (mapcar #'(lambda (hex)
-              (parse-integer hex :radix 16))
-          (cl-ppcre:all-matches-as-strings ".." hexs)))
-
-(defun duplicate-blocks? (line)
-  (catch 'result
-         (labels ((_ (i acc gacc lst)
-                     (cond ((null lst) nil)
-                           ((= i 16)
-                            (if (member acc gacc :test #'equal)
-                              (throw 'result t)
-                              (_ 0 nil (cons acc gacc) lst)))
-                           (t
-                             (_ (1+ i)
-                                (cons (car lst) acc)
-                                gacc
-                                (cdr lst))))))
-           (_ 0 nil nil (to-bytes line)))))
+(defun duplicate-blocks? (line &optional (block-size 16))
+  (let ((seen (make-hash-table :test #'equal))
+        (num-blocks (/ (length line) block-size)))
+    (do ((i 0 (1+ i)))
+      ((= i num-blocks) nil)
+      (let ((block-n (subseq line
+                             (* i block-size)
+                             (* (1+ i) block-size))))
+        (if (gethash block-n seen)
+          (return-from duplicate-blocks? t)
+          (setf (gethash block-n seen) t))))))
 
 (with-open-file (instream "8.txt")
   (do ((line (read-line instream nil :eof)
